@@ -8,61 +8,51 @@ export interface MedicationPricing {
   name: string;
   /** Category/treatment type (e.g., "TRT", "HRT", "GLP-1") */
   category: string;
-  /** Cost for 28-day supply (base pricing unit) */
-  cost28Day: number;
-  /** Cost for 56-day supply (optional, will be calculated if not provided) */
-  cost56Day?: number;
-  /** Cost for 84-day supply (optional, will be calculated if not provided) */
-  cost84Day?: number;
+  /** Cost per week */
+  costPerWeek: number;
+  /** Cost for 4 weeks (28 days) */
+  cost4Week: number;
+  /** Cost for 8 weeks (56 days) */
+  cost8Week: number;
+  /** Cost for 12 weeks (84 days) */
+  cost12Week: number;
 }
 
 /**
- * Represents a single medication line item in the refund calculation
+ * Represents a selected medication for refund calculation
  */
-export interface MedicationLineItem {
-  /** Unique identifier for this line item */
+export interface SelectedMedication {
   id: string;
-  /** Reference to the medication ID from pricing data */
-  medicationId: string;
-  /** Number of days supplied */
-  daysSupplied: number;
-  /** Optional manual override value (USD) */
-  overrideValue?: number;
-}
-
-/**
- * Represents the breakdown of a single medication's calculated value
- */
-export interface MedicationBreakdown {
-  /** The line item this breakdown is for */
-  lineItem: MedicationLineItem;
-  /** The medication pricing data */
-  medication: MedicationPricing;
-  /** The calculated or overridden value */
-  calculatedValue: number;
-  /** Whether an override was used */
-  isOverridden: boolean;
-  /** Description of how the value was calculated */
-  calculationMethod: string;
+  weeksReceived: number;
 }
 
 /**
  * Represents the complete refund calculation result
  */
 export interface RefundCalculation {
-  /** The subscription price entered */
-  subscriptionPrice: number;
-  /** Total value of all medications */
+  /** The amount the customer paid */
+  amountPaid: number;
+  /** Number of weeks paid for */
+  weeksPaidFor: number;
+  /** Total value of medications received */
   totalMedicationValue: number;
   /** The refund amount due (never negative) */
   refundDue: number;
   /** Breakdown of each medication's value */
-  breakdown: MedicationBreakdown[];
+  breakdown: MedicationBreakdownItem[];
 }
 
 /**
- * Standard day supply options
+ * Breakdown item for a single medication
  */
-export const DAY_SUPPLY_PRESETS = [28, 56, 84] as const;
-export type DaySupplyPreset = (typeof DAY_SUPPLY_PRESETS)[number];
+export interface MedicationBreakdownItem {
+  medication: MedicationPricing;
+  weeksReceived: number;
+  calculatedValue: number;
+}
 
+/**
+ * Standard week options for dropdowns
+ */
+export const WEEK_OPTIONS = [4, 8, 12, 16, 20, 24, 48] as const;
+export type WeekOption = (typeof WEEK_OPTIONS)[number];

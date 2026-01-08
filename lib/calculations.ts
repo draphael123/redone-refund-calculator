@@ -1,114 +1,41 @@
 import {
   MedicationPricing,
-  MedicationLineItem,
-  MedicationBreakdown,
+  SelectedMedication,
+  MedicationBreakdownItem,
   RefundCalculation,
 } from "./types";
 import { getMedicationById } from "./pricing";
 
 /**
- * Base number of days for pricing calculations
+ * Calculate the value of a medication based on weeks received
  */
-const BASE_DAYS = 28;
-
-/**
- * Calculate the cost for a medication based on days supplied
- * Uses exact pricing when available, otherwise scales linearly from 28-day cost
- */
-export function calculateMedicationCost(
+export function calculateMedicationValue(
   medication: MedicationPricing,
-  daysSupplied: number
-): { cost: number; method: string } {
-  // Check for exact day match first
-  if (daysSupplied === 28 && medication.cost28Day !== undefined) {
-    return {
-      cost: medication.cost28Day,
-      method: "28-day pricing",
-    };
-  }
-
-  if (daysSupplied === 56 && medication.cost56Day !== undefined) {
-    return {
-      cost: medication.cost56Day,
-      method: "56-day pricing",
-    };
-  }
-
-  if (daysSupplied === 84 && medication.cost84Day !== undefined) {
-    return {
-      cost: medication.cost84Day,
-      method: "84-day pricing",
-    };
-  }
-
-  // No exact match - calculate linear scaling from 28-day cost
-  const dailyRate = medication.cost28Day / BASE_DAYS;
-  const scaledCost = dailyRate * daysSupplied;
-
-  return {
-    cost: roundToTwoDecimals(scaledCost),
-    method: `Linear scaling (${daysSupplied} days at $${dailyRate.toFixed(
-      4
-    )}/day)`,
-  };
-}
-
-/**
- * Calculate the value for a single medication line item
- */
-export function calculateLineItemValue(
-  lineItem: MedicationLineItem
-): MedicationBreakdown | null {
-  const medication = getMedicationById(lineItem.medicationId);
-
-  if (!medication) {
-    return null;
-  }
-
-  // If override value is provided, use it
-  if (
-    lineItem.overrideValue !== undefined &&
-    lineItem.overrideValue !== null &&
-    lineItem.overrideValue >= 0
-  ) {
-    return {
-      lineItem,
-      medication,
-      calculatedValue: lineItem.overrideValue,
-      isOverridden: true,
-      calculationMethod: "Manual override",
-    };
-  }
-
-  // Calculate based on days supplied
-  const { cost, method } = calculateMedicationCost(
-    medication,
-    lineItem.daysSupplied
-  );
-
-  return {
-    lineItem,
-    medication,
-    calculatedValue: cost,
-    isOverridden: false,
-    calculationMethod: method,
-  };
+  weeksReceived: number
+): number {
+  return roundToTwoDecimals(medication.costPerWeek * weeksReceived);
 }
 
 /**
  * Calculate the complete refund
  */
 export function calculateRefund(
-  subscriptionPrice: number,
-  lineItems: MedicationLineItem[]
+  amountPaid: number,
+  weeksPaidFor: number,
+  selectedMedications: SelectedMedication[]
 ): RefundCalculation {
-  // Calculate breakdown for each line item
-  const breakdown: MedicationBreakdown[] = [];
+  const breakdown: MedicationBreakdownItem[] = [];
 
-  for (const lineItem of lineItems) {
-    const itemBreakdown = calculateLineItemValue(lineItem);
-    if (itemBreakdown) {
-      breakdown.push(itemBreakdown);
+  // Calculate value for each selected medication
+  for (const selected of selectedMedications) {
+    const medication = getMedicationById(selected.id);
+    if (medication) {
+      const value = calculateMedicationValue(medication, selected.weeksReceived);
+      breakdown.push({
+        medication,
+        weeksReceived: selected.weeksReceived,
+        calculatedValue: value,
+      });
     }
   }
 
@@ -118,11 +45,13 @@ export function calculateRefund(
     0
   );
 
-  // Calculate refund (never negative)
-  const refundDue = Math.max(0, subscriptionPrice - totalMedicationValue);
+  // Calculate refund (amount paid minus value of medications received)
+  // Refund can never be negative
+  const refundDue = Math.max(0, amountPaid - totalMedicationValue);
 
   return {
-    subscriptionPrice,
+    amountPaid,
+    weeksPaidFor,
     totalMedicationValue: roundToTwoDecimals(totalMedicationValue),
     refundDue: roundToTwoDecimals(refundDue),
     breakdown,
@@ -157,18 +86,16 @@ export function generateRefundSummary(calculation: RefundCalculation): string {
   lines.push("REFUND CALCULATION SUMMARY");
   lines.push("=".repeat(40));
   lines.push("");
-  lines.push(`Subscription Price: ${formatCurrency(calculation.subscriptionPrice)}`);
+  lines.push(`Amount Paid: ${formatCurrency(calculation.amountPaid)}`);
+  lines.push(`Weeks Paid For: ${calculation.weeksPaidFor}`);
   lines.push("");
-  lines.push("MEDICATIONS:");
+  lines.push("MEDICATIONS RECEIVED:");
   lines.push("-".repeat(40));
 
   for (const item of calculation.breakdown) {
     lines.push(`${item.medication.name}`);
-    lines.push(`  Days Supplied: ${item.lineItem.daysSupplied}`);
+    lines.push(`  Weeks Received: ${item.weeksReceived}`);
     lines.push(`  Value: ${formatCurrency(item.calculatedValue)}`);
-    if (item.isOverridden) {
-      lines.push(`  (Manual Override)`);
-    }
     lines.push("");
   }
 
@@ -181,4 +108,3 @@ export function generateRefundSummary(calculation: RefundCalculation): string {
 
   return lines.join("\n");
 }
-
