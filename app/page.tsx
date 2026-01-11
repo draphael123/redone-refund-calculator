@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect, useRef } from "react";
 import { SelectedMedication, WEEK_OPTIONS } from "@/lib/types";
 import {
   MEDICATION_PRICING,
@@ -22,8 +22,21 @@ export default function RefundCalculator() {
   const [copied, setCopied] = useState(false);
   const [showInstructions, setShowInstructions] = useState(true);
   const [darkMode, setDarkMode] = useState(true);
+  const [showSettings, setShowSettings] = useState(false);
+  const settingsRef = useRef<HTMLDivElement>(null);
 
   const categories = ["All", ...getMedicationCategories()];
+
+  // Close settings when clicking outside
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (settingsRef.current && !settingsRef.current.contains(event.target as Node)) {
+        setShowSettings(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   // Initialize dark mode from localStorage (default to dark)
   useEffect(() => {
@@ -114,22 +127,71 @@ export default function RefundCalculator() {
         {/* Header */}
         <header className="text-center mb-6 sm:mb-8">
           <div className="flex items-center justify-between mb-4">
-            {/* Dark Mode Toggle */}
-            <button
-              onClick={toggleDarkMode}
-              className="p-2 sm:p-3 rounded-xl bg-white/20 backdrop-blur hover:bg-white/30 transition-all"
-              aria-label="Toggle dark mode"
-            >
-              {darkMode ? (
-                <svg className="w-5 h-5 sm:w-6 sm:h-6 text-yellow-300" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+            {/* Settings Button */}
+            <div className="relative" ref={settingsRef}>
+              <button
+                onClick={() => setShowSettings(!showSettings)}
+                className="p-2 sm:p-3 rounded-xl bg-white/20 backdrop-blur hover:bg-white/30 transition-all"
+                aria-label="Settings"
+              >
+                <svg className="w-5 h-5 sm:w-6 sm:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                 </svg>
-              ) : (
-                <svg className="w-5 h-5 sm:w-6 sm:h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-                </svg>
+              </button>
+
+              {/* Settings Dropdown */}
+              {showSettings && (
+                <div className={`absolute left-0 top-full mt-2 w-64 rounded-xl shadow-xl overflow-hidden z-50 ${darkMode ? "bg-slate-800" : "bg-white"}`}>
+                  <div className={`px-4 py-3 border-b ${darkMode ? "border-slate-700" : "border-slate-200"}`}>
+                    <h3 className={`font-semibold ${darkMode ? "text-white" : "text-slate-800"}`}>Settings</h3>
+                  </div>
+                  <div className="p-3 space-y-3">
+                    {/* Dark Mode Toggle */}
+                    <div className={`flex items-center justify-between p-2 rounded-lg ${darkMode ? "bg-slate-700/50" : "bg-slate-50"}`}>
+                      <div className="flex items-center gap-3">
+                        {darkMode ? (
+                          <svg className="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                          </svg>
+                        ) : (
+                          <svg className="w-5 h-5 text-slate-600" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                          </svg>
+                        )}
+                        <span className={`text-sm font-medium ${darkMode ? "text-slate-200" : "text-slate-700"}`}>
+                          Dark Mode
+                        </span>
+                      </div>
+                      <button
+                        onClick={toggleDarkMode}
+                        className={`relative w-11 h-6 rounded-full transition-colors ${darkMode ? "bg-indigo-500" : "bg-slate-300"}`}
+                      >
+                        <span className={`absolute top-1 w-4 h-4 bg-white rounded-full shadow transition-transform ${darkMode ? "left-6" : "left-1"}`} />
+                      </button>
+                    </div>
+
+                    {/* Show Instructions Toggle */}
+                    <div className={`flex items-center justify-between p-2 rounded-lg ${darkMode ? "bg-slate-700/50" : "bg-slate-50"}`}>
+                      <div className="flex items-center gap-3">
+                        <svg className={`w-5 h-5 ${darkMode ? "text-indigo-400" : "text-indigo-600"}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <span className={`text-sm font-medium ${darkMode ? "text-slate-200" : "text-slate-700"}`}>
+                          Show Instructions
+                        </span>
+                      </div>
+                      <button
+                        onClick={() => setShowInstructions(!showInstructions)}
+                        className={`relative w-11 h-6 rounded-full transition-colors ${showInstructions ? "bg-indigo-500" : darkMode ? "bg-slate-600" : "bg-slate-300"}`}
+                      >
+                        <span className={`absolute top-1 w-4 h-4 bg-white rounded-full shadow transition-transform ${showInstructions ? "left-6" : "left-1"}`} />
+                      </button>
+                    </div>
+                  </div>
+                </div>
               )}
-            </button>
+            </div>
 
             <h1 className="text-2xl sm:text-4xl font-bold text-white drop-shadow-lg">
               Refund Calculator
@@ -230,18 +292,6 @@ export default function RefundCalculator() {
               </button>
             </div>
           </div>
-        )}
-
-        {!showInstructions && (
-          <button
-            onClick={() => setShowInstructions(true)}
-            className="mb-4 text-white/80 hover:text-white text-sm flex items-center gap-1"
-          >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            Show Instructions
-          </button>
         )}
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
