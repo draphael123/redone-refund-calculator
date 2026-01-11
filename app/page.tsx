@@ -21,14 +21,20 @@ export default function RefundCalculator() {
   const [categoryFilter, setCategoryFilter] = useState<string>("All");
   const [copied, setCopied] = useState(false);
   const [showInstructions, setShowInstructions] = useState(true);
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(true);
 
   const categories = ["All", ...getMedicationCategories()];
 
-  // Initialize dark mode from localStorage
+  // Initialize dark mode from localStorage (default to dark)
   useEffect(() => {
     const savedDarkMode = localStorage.getItem("darkMode");
-    if (savedDarkMode === "true") {
+    // Only switch to light mode if explicitly set to false
+    if (savedDarkMode === "false") {
+      setDarkMode(false);
+      document.documentElement.classList.remove("dark");
+      document.body.classList.remove("dark-bg");
+    } else {
+      // Default to dark mode
       setDarkMode(true);
       document.documentElement.classList.add("dark");
       document.body.classList.add("dark-bg");
