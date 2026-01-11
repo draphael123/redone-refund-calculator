@@ -146,7 +146,7 @@ export default function RefundCalculator() {
                   <div className={`px-4 py-3 border-b ${darkMode ? "border-slate-700" : "border-slate-200"}`}>
                     <h3 className={`font-semibold ${darkMode ? "text-white" : "text-slate-800"}`}>Settings</h3>
                   </div>
-                  <div className="p-3 space-y-3">
+                  <div className="p-3">
                     {/* Dark Mode Toggle */}
                     <div className={`flex items-center justify-between p-2 rounded-lg ${darkMode ? "bg-slate-700/50" : "bg-slate-50"}`}>
                       <div className="flex items-center gap-3">
@@ -170,8 +170,10 @@ export default function RefundCalculator() {
                         <span className={`absolute top-1 w-4 h-4 bg-white rounded-full shadow transition-transform ${darkMode ? "left-6" : "left-1"}`} />
                       </button>
                     </div>
+                  </div>
 
-                    {/* Show Instructions Toggle */}
+                  {/* Show Instructions Toggle - Bottom Section */}
+                  <div className={`px-3 pb-3 pt-2 border-t ${darkMode ? "border-slate-700" : "border-slate-200"}`}>
                     <div className={`flex items-center justify-between p-2 rounded-lg ${darkMode ? "bg-slate-700/50" : "bg-slate-50"}`}>
                       <div className="flex items-center gap-3">
                         <svg className={`w-5 h-5 ${darkMode ? "text-indigo-400" : "text-indigo-600"}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
