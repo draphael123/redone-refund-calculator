@@ -165,7 +165,7 @@ export default function RefundCalculator() {
                       </div>
                       <button
                         onClick={toggleDarkMode}
-                        className={`relative w-11 h-6 rounded-full transition-colors ${darkMode ? "bg-indigo-500" : "bg-slate-300"}`}
+                        className={`relative w-11 h-6 rounded-full transition-colors ${darkMode ? "bg-blue-500" : "bg-slate-300"}`}
                       >
                         <span className={`absolute top-1 w-4 h-4 bg-white rounded-full shadow transition-transform ${darkMode ? "left-6" : "left-1"}`} />
                       </button>
@@ -176,7 +176,7 @@ export default function RefundCalculator() {
                   <div className={`px-3 pb-3 pt-2 border-t ${darkMode ? "border-slate-700" : "border-slate-200"}`}>
                     <div className={`flex items-center justify-between p-2 rounded-lg ${darkMode ? "bg-slate-700/50" : "bg-slate-50"}`}>
                       <div className="flex items-center gap-3">
-                        <svg className={`w-5 h-5 ${darkMode ? "text-indigo-400" : "text-indigo-600"}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg className={`w-5 h-5 ${darkMode ? "text-blue-400" : "text-blue-600"}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
                         <span className={`text-sm font-medium ${darkMode ? "text-slate-200" : "text-slate-700"}`}>
@@ -185,7 +185,7 @@ export default function RefundCalculator() {
                       </div>
                       <button
                         onClick={() => setShowInstructions(!showInstructions)}
-                        className={`relative w-11 h-6 rounded-full transition-colors ${showInstructions ? "bg-indigo-500" : darkMode ? "bg-slate-600" : "bg-slate-300"}`}
+                        className={`relative w-11 h-6 rounded-full transition-colors ${showInstructions ? "bg-blue-500" : darkMode ? "bg-slate-600" : "bg-slate-300"}`}
                       >
                         <span className={`absolute top-1 w-4 h-4 bg-white rounded-full shadow transition-transform ${showInstructions ? "left-6" : "left-1"}`} />
                       </button>
@@ -225,7 +225,7 @@ export default function RefundCalculator() {
           <div className={`card backdrop-blur rounded-2xl shadow-xl p-4 sm:p-6 mb-4 sm:mb-6 card-glow ${darkMode ? "bg-slate-800/95" : "bg-white/95"}`}>
             <div className="flex items-start justify-between gap-4">
               <div className="flex-1">
-                <h2 className={`text-base sm:text-lg font-semibold mb-3 flex items-center gap-2 ${darkMode ? "text-indigo-400" : "text-indigo-600"}`}>
+                <h2 className={`text-base sm:text-lg font-semibold mb-3 flex items-center gap-2 ${darkMode ? "text-blue-400" : "text-blue-600"}`}>
                   <svg
                     className="w-5 h-5 flex-shrink-0"
                     fill="none"
@@ -243,7 +243,7 @@ export default function RefundCalculator() {
                 </h2>
                 <ol className={`space-y-2 text-xs sm:text-sm ${darkMode ? "text-slate-300" : "text-slate-600"}`}>
                   <li className="flex items-start gap-2">
-                    <span className={`rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5 ${darkMode ? "bg-indigo-900 text-indigo-300" : "bg-indigo-100 text-indigo-600"}`}>
+                    <span className={`rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5 ${darkMode ? "bg-blue-900 text-blue-300" : "bg-blue-100 text-blue-600"}`}>
                       1
                     </span>
                     <span>
@@ -251,7 +251,7 @@ export default function RefundCalculator() {
                     </span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className={`rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5 ${darkMode ? "bg-indigo-900 text-indigo-300" : "bg-indigo-100 text-indigo-600"}`}>
+                    <span className={`rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5 ${darkMode ? "bg-blue-900 text-blue-300" : "bg-blue-100 text-blue-600"}`}>
                       2
                     </span>
                     <span>
@@ -259,7 +259,7 @@ export default function RefundCalculator() {
                     </span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className={`rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5 ${darkMode ? "bg-indigo-900 text-indigo-300" : "bg-indigo-100 text-indigo-600"}`}>
+                    <span className={`rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5 ${darkMode ? "bg-blue-900 text-blue-300" : "bg-blue-100 text-blue-600"}`}>
                       3
                     </span>
                     <span>
@@ -267,7 +267,7 @@ export default function RefundCalculator() {
                     </span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className={`rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5 ${darkMode ? "bg-indigo-900 text-indigo-300" : "bg-indigo-100 text-indigo-600"}`}>
+                    <span className={`rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5 ${darkMode ? "bg-blue-900 text-blue-300" : "bg-blue-100 text-blue-600"}`}>
                       4
                     </span>
                     <span>
@@ -275,7 +275,7 @@ export default function RefundCalculator() {
                     </span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className={`rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5 ${darkMode ? "bg-indigo-900 text-indigo-300" : "bg-indigo-100 text-indigo-600"}`}>
+                    <span className={`rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5 ${darkMode ? "bg-blue-900 text-blue-300" : "bg-blue-100 text-blue-600"}`}>
                       5
                     </span>
                     <span>
@@ -302,7 +302,7 @@ export default function RefundCalculator() {
             {/* Payment Details Card */}
             <div className={`card backdrop-blur rounded-2xl shadow-xl p-4 sm:p-6 card-glow ${darkMode ? "bg-slate-800/95" : "bg-white/95"}`}>
               <h2 className={`text-base sm:text-lg font-semibold mb-4 flex items-center gap-2 ${darkMode ? "text-slate-100" : "text-slate-800"}`}>
-                <span className="w-7 h-7 sm:w-8 sm:h-8 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                <span className="w-7 h-7 sm:w-8 sm:h-8 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">
                   <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
@@ -327,7 +327,7 @@ export default function RefundCalculator() {
                       placeholder="0.00"
                       min="0"
                       step="0.01"
-                      className={`w-full pl-8 pr-4 py-3 border-2 rounded-xl focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all text-base sm:text-lg ${
+                      className={`w-full pl-8 pr-4 py-3 border-2 rounded-xl focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all text-base sm:text-lg ${
                         darkMode
                           ? "bg-slate-700 border-slate-600 text-white placeholder-slate-500"
                           : "bg-slate-50 border-slate-200 text-slate-900 placeholder-slate-400"
@@ -344,7 +344,7 @@ export default function RefundCalculator() {
                   <select
                     value={weeksPaidFor}
                     onChange={(e) => setWeeksPaidFor(parseInt(e.target.value))}
-                    className={`w-full px-4 py-3 border-2 rounded-xl focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all text-base sm:text-lg appearance-none cursor-pointer ${
+                    className={`w-full px-4 py-3 border-2 rounded-xl focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all text-base sm:text-lg appearance-none cursor-pointer ${
                       darkMode
                         ? "bg-slate-700 border-slate-600 text-white"
                         : "bg-slate-50 border-slate-200 text-slate-900"
@@ -364,7 +364,7 @@ export default function RefundCalculator() {
             <div className={`card backdrop-blur rounded-2xl shadow-xl p-4 sm:p-6 card-glow ${darkMode ? "bg-slate-800/95" : "bg-white/95"}`}>
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
                 <h2 className={`text-base sm:text-lg font-semibold flex items-center gap-2 ${darkMode ? "text-slate-100" : "text-slate-800"}`}>
-                  <span className="w-7 h-7 sm:w-8 sm:h-8 bg-gradient-to-br from-pink-500 to-rose-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <span className="w-7 h-7 sm:w-8 sm:h-8 bg-gradient-to-br from-blue-400 to-cyan-500 rounded-lg flex items-center justify-center flex-shrink-0">
                     <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
                     </svg>
@@ -380,7 +380,7 @@ export default function RefundCalculator() {
                       onClick={() => setCategoryFilter(category)}
                       className={`px-2.5 sm:px-3 py-1.5 text-xs sm:text-sm font-medium rounded-lg transition-all whitespace-nowrap flex-shrink-0 ${
                         categoryFilter === category
-                          ? "bg-gradient-to-r from-indigo-500 to-purple-500 text-white shadow-md"
+                          ? "bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-md"
                           : darkMode
                             ? "bg-slate-700 text-slate-300 hover:bg-slate-600"
                             : "bg-slate-100 text-slate-600 hover:bg-slate-200"
@@ -408,8 +408,8 @@ export default function RefundCalculator() {
                       className={`p-3 sm:p-4 rounded-xl border-2 transition-all ${
                         isSelected
                           ? darkMode
-                            ? "border-indigo-500 bg-indigo-900/30"
-                            : "border-indigo-500 bg-indigo-50"
+                            ? "border-blue-500 bg-blue-900/30"
+                            : "border-blue-500 bg-indigo-50"
                           : darkMode
                             ? "border-slate-600 bg-slate-700/50 hover:border-slate-500"
                             : "border-slate-200 bg-white hover:border-slate-300"
@@ -420,7 +420,7 @@ export default function RefundCalculator() {
                           type="checkbox"
                           checked={isSelected}
                           onChange={() => toggleMedication(medication.id)}
-                          className="w-5 h-5 mt-0.5 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500 medication-checkbox cursor-pointer"
+                          className="w-5 h-5 mt-0.5 rounded border-slate-300 text-blue-600 focus:ring-blue-500 medication-checkbox cursor-pointer"
                         />
                         <div className="flex-1 min-w-0">
                           <div className="flex items-start justify-between gap-2 mb-1">
@@ -450,10 +450,10 @@ export default function RefundCalculator() {
                                     parseInt(e.target.value)
                                   )
                                 }
-                                className={`px-2 py-1 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-200 ${
+                                className={`px-2 py-1 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-200 ${
                                   darkMode
-                                    ? "bg-slate-600 border-indigo-400 text-white"
-                                    : "bg-white border-indigo-300 text-slate-900"
+                                    ? "bg-slate-600 border-blue-400 text-white"
+                                    : "bg-white border-blue-300 text-slate-900"
                                 }`}
                               >
                                 {Array.from({ length: 48 }, (_, i) => i + 1).map(
@@ -480,7 +480,7 @@ export default function RefundCalculator() {
             <div className="sticky top-4 space-y-4 sm:space-y-6">
               {/* Results Card */}
               <div className={`card backdrop-blur rounded-2xl shadow-xl overflow-hidden card-glow ${darkMode ? "bg-slate-800/95" : "bg-white/95"}`}>
-                <div className="bg-gradient-to-r from-indigo-500 to-purple-500 px-4 sm:px-6 py-3 sm:py-4">
+                <div className="bg-gradient-to-r from-blue-500 to-blue-600 px-4 sm:px-6 py-3 sm:py-4">
                   <h2 className="text-base sm:text-lg font-semibold text-white">
                     Calculation Results
                   </h2>
