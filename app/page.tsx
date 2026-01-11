@@ -518,6 +518,11 @@ export default function RefundCalculator() {
                       {formatCurrency(calculation.refundDue)}
                     </span>
                   </div>
+
+                  {/* Refund Eligibility Note */}
+                  <p className={`text-xs mt-4 ${darkMode ? "text-slate-400" : "text-slate-500"}`}>
+                    <span className={`font-medium ${darkMode ? "text-slate-300" : "text-slate-600"}`}>Note:</span> We may make exceptions for refunds due to CEs, but please go off the refund amount listed in this calculator in most cases.
+                  </p>
                 </div>
               </div>
 
